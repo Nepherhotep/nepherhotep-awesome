@@ -10,6 +10,8 @@ local beautiful = require("beautiful")
 -- Notification library
 local naughty = require("naughty")
 local menubar = require("menubar")
+local alsawidget = require('alsawidget')
+local conf = require('conf')
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -41,16 +43,17 @@ end
 beautiful.init("~/.config/awesome/themes/custom/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "terminator"
-editor = os.getenv("EDITOR") or "emacs"
-editor_cmd = terminal .. " -e " .. editor
+terminal = conf.terminal
+editor = conf.editor
+editor_cmd = conf.editor_cmd
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
 -- If you do not like this or do not have such a key,
 -- I suggest you to remap Mod4 to another key using xmodmap or other tools.
 -- However, you can use another modifier like Mod1, but it may interact with others.
-modkey = "Mod4"
+modkey = conf.modkey
+
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 local layouts =
@@ -191,6 +194,7 @@ for s = 1, screen.count() do
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
     if s == 1 then right_layout:add(wibox.widget.systray()) end
+    right_layout:add(alsawidget.bar)
     right_layout:add(mytextclock)
     right_layout:add(mylayoutbox[s])
 
