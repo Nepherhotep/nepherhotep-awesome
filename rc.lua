@@ -12,6 +12,7 @@ local naughty = require("naughty")
 local menubar = require("menubar")
 local alsawidget = require('alsawidget')
 local conf = require('conf')
+local vicious = require('vicious')
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -277,6 +278,30 @@ globalkeys = awful.util.table.join(
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end)
 )
+
+globalkeys = awful.util.table.join(globalkeys, awful.key({ }, "XF86AudioRaiseVolume",
+    function()
+       awful.util.spawn("amixer sset " .. alsawidget.channel .. " " .. alsawidget.step .. "+")
+       vicious.force({ alsawidget.bar })
+       alsawidget.notify()
+end))
+globalkeys = awful.util.table.join(globalkeys, awful.key({ }, "XF86AudioLowerVolume",
+    function()
+       awful.util.spawn("amixer sset " .. alsawidget.channel .. " " .. alsawidget.step .. "-")
+       vicious.force({ alsawidget.bar })
+       alsawidget.notify()
+end))
+globalkeys = awful.util.table.join(globalkeys, awful.key({ }, "XF86AudioMute",
+    function()
+       awful.util.spawn("amixer sset " .. alsawidget.channel .. " toggle")
+       -- The 2 following lines were needed at least on my configuration, otherwise it would get stuck muted
+       -- However, if the channel you're using is "Speaker" or "Headpphone"
+       -- instead of "Master", you'll have to comment out their corresponding line below.
+       -- awful.util.spawn("amixer sset " .. "Speaker" .. " unmute")
+       -- awful.util.spawn("amixer sset " .. "Headphone" .. " unmute")
+       vicious.force({ alsawidget.bar })
+       alsawidget.notify()
+end))
 
 clientkeys = awful.util.table.join(
     awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
