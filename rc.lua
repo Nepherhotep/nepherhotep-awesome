@@ -116,6 +116,26 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- Create a textclock widget
 mytextclock = awful.widget.textclock()
 
+-- Keyboard map indicator and changer
+kbdcfg = {}
+kbdcfg.cmd = "setxkbmap"
+kbdcfg.layout = { { "us", "" , "US" }, { "ru", "" , "RU" } }
+kbdcfg.current = 1  -- us is our default layout
+kbdcfg.widget = wibox.widget.textbox()
+kbdcfg.widget:set_text(" " .. kbdcfg.layout[kbdcfg.current][3] .. " ")
+
+kbdcfg.switch = function ()
+   kbdcfg.current = kbdcfg.current % #(kbdcfg.layout) + 1
+   local t = kbdcfg.layout[kbdcfg.current]
+   kbdcfg.widget:set_text(" " .. t[3] .. " ")
+   os.execute( kbdcfg.cmd .. " " .. t[1] .. " " .. t[2] )
+end
+
+-- Mouse bindings
+kbdcfg.widget:buttons(
+   awful.util.table.join(awful.button({ }, 1, function () kbdcfg.switch() end))
+)
+
 -- Create a wibox for each screen and add it
 mywibox = {}
 mypromptbox = {}
@@ -196,6 +216,7 @@ for s = 1, screen.count() do
     local right_layout = wibox.layout.fixed.horizontal()
     if s == 1 then right_layout:add(wibox.widget.systray()) end
     right_layout:add(alsawidget.bar)
+    right_layout:add(kbdcfg.widget)
     right_layout:add(mytextclock)
     right_layout:add(mylayoutbox[s])
 
@@ -247,7 +268,7 @@ globalkeys = awful.util.table.join(
             if client.focus then
                 client.focus:raise()
             end
-        end),
+    end),
 
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
@@ -320,7 +341,8 @@ clientkeys = awful.util.table.join(
         function (c)
             c.maximized_horizontal = not c.maximized_horizontal
             c.maximized_vertical   = not c.maximized_vertical
-        end)
+    end),
+    awful.key({ "Mod1" }, "Shift_L", function () kbdcfg.switch() end)
 )
 
 -- Bind all key numbers to tags.
