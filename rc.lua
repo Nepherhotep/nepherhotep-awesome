@@ -414,6 +414,27 @@ for i = 1, 9 do
                   end))
 end
 
+
+globalkeys = awful.util.table.join(globalkeys,
+   -- Quick access by num keys
+   awful.key({}, "#87", function () switch_to_tag( 1 ) end),
+   awful.key({}, "#88", function () switch_to_tag( 2 ) end),
+   awful.key({}, "#89", function () switch_to_tag( 3 ) end),
+   awful.key({}, "#83", function () switch_to_tag( 4 ) end),
+   awful.key({}, "#84", function () switch_to_tag( 5 ) end),
+   awful.key({}, "#85", function () switch_to_tag( 6 ) end),
+   awful.key({}, "#79", function () switch_to_tag( 7 ) end),
+   awful.key({}, "#80", function () switch_to_tag( 8 ) end),
+   awful.key({}, "#81", function () switch_to_tag( 9 ) end),
+
+   -- Quick access by media keys
+   awful.key({}, "#192", function () switch_to_tag( 1 ) end),
+   awful.key({}, "#193", function () switch_to_tag( 2 ) end),
+   awful.key({}, "#194", function () switch_to_tag( 3 ) end),
+   awful.key({}, "#195", function () switch_to_tag( 4 ) end),
+   awful.key({}, "#196", function () switch_to_tag( 5 ) end)
+)
+
 clientbuttons = awful.util.table.join(
     awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
     awful.button({ modkey }, 1, awful.mouse.client.move),
@@ -522,6 +543,15 @@ function run_once(cmd)
       findme = cmd:sub(0, firstspace-1)
    end
    awful.util.spawn_with_shell("pgrep -u $USER -x " .. findme .. " > /dev/null || (" .. cmd .. ")")
+end
+
+
+function switch_to_tag( tag_index )
+   local screen = mouse.screen
+   local tag = awful.tag.gettags(screen)[ tag_index ]
+   if tag then
+      awful.tag.viewonly(tag)
+   end
 end
 
 -- autostart
