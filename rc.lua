@@ -313,9 +313,6 @@ globalkeys = awful.util.table.join(
     -- Prompt
     awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
 
-    -- Alternative key for prompt
-    awful.key({}, '#225', function () mypromptbox[mouse.screen]:run() end),
-
     awful.key({ modkey }, "x",
               function ()
                   awful.prompt.run({ prompt = "Run Lua code: " },
@@ -418,6 +415,8 @@ for i = 1, 9 do
 end
 
 
+
+
 globalkeys = awful.util.table.join(globalkeys,
    -- Quick access by num keys
    awful.key({}, "#87", function () switch_to_tag( 1 ) end),
@@ -431,11 +430,27 @@ globalkeys = awful.util.table.join(globalkeys,
    awful.key({}, "#81", function () switch_to_tag( 9 ) end),
 
    -- Quick access by media keys
-   awful.key({}, "#192", function () switch_to_tag( 1 ) end),
-   awful.key({}, "#193", function () switch_to_tag( 2 ) end),
-   awful.key({}, "#194", function () switch_to_tag( 3 ) end),
-   awful.key({}, "#195", function () switch_to_tag( 4 ) end),
-   awful.key({}, "#196", function () switch_to_tag( 5 ) end)
+   awful.key({}, "XF86Launch5", function () switch_to_tag( 1 ) end),
+   awful.key({}, "XF86Launch6", function () switch_to_tag( 2 ) end),
+   awful.key({}, "XF86Launch7", function () switch_to_tag( 3 ) end),
+   awful.key({}, "XF86Launch8", function () switch_to_tag( 4 ) end),
+   awful.key({}, "XF86Launch9", function () switch_to_tag( 5 ) end),
+
+   -- Ask before poweroff
+   awful.key({}, "XF86PowerOff", function ()
+	 awful.util.spawn_with_shell('zenity --question --text "Power off?" --default-cancel && poweroff')
+   end),
+   
+   -- Other custom hotkeys
+   awful.key({}, 'XF86HomePage', function () awful.util.spawn_with_shell('pcmanfm') end),
+   awful.key({}, 'XF86Search', function () awful.util.spawn_with_shell('google-chrome-stable') end),
+   awful.key({}, 'XF86Mail', function ()
+	 awful.util.spawn_with_shell('google-chrome-stable http://gmail.com --new-window')
+   end),
+
+   -- Alternative key for prompt
+   awful.key({}, 'XF86Favorites', function () mypromptbox[mouse.screen]:run() end)
+
 )
 
 clientbuttons = awful.util.table.join(
@@ -464,6 +479,10 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { class = "gimp" },
       properties = { floating = true } },
+    { rule = { name = 'tipsi -.*' },
+      properties = { tag = tags[1][2] } },
+    { rule = { name = 'tipsi_opencv_ocr -.*' },
+      properties = { tag = tags[1][4] } }
     -- Set Firefox to always map on tags number 2 of screen 1.
     -- { rule = { class = "Firefox" },
     --   properties = { tag = tags[1][2] } },
@@ -559,7 +578,6 @@ end
 
 -- autostart
 run_once('nm-applet')
-run_once('shutter --min_at_startup')
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
