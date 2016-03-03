@@ -475,7 +475,7 @@ awful.rules.rules = {
     { rule = { class = "gimp" },
       properties = { floating = true } },
     { rule = { name = 'tipsi -.*' },
-      properties = { tag = tags[1][2] } },
+      properties = { tag = tags[1][1] } },
     { rule = { name = 'tipsi_opencv_ocr -.*' },
       properties = { tag = tags[1][4] } }
     -- Set Firefox to always map on tags number 2 of screen 1.
