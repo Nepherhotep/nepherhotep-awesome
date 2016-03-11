@@ -13,6 +13,14 @@ local menubar = require("menubar")
 local alsawidget = require('alsawidget')
 local conf = require('conf')
 local vicious = require('vicious')
+local lain = require('lain')
+
+mycpuusage = lain.widgets.cpu({
+      timeout = 4,
+      settings = function()
+	 widget:set_markup(" CPU(" .. cpu_now.usage .. "%)")
+      end
+})
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -212,6 +220,7 @@ for s = 1, screen.count() do
     local right_layout = wibox.layout.fixed.horizontal()
     if s == 1 then right_layout:add(wibox.widget.systray()) end
     right_layout:add(alsawidget.bar)
+    right_layout:add(mycpuusage)
     right_layout:add(kbdwidget)
     right_layout:add(mytextclock)
     right_layout:add(mylayoutbox[s])
