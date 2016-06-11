@@ -329,29 +329,34 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey }, "p", function() menubar.show() end)
 )
 
-globalkeys = awful.util.table.join(globalkeys, awful.key({ }, "XF86AudioRaiseVolume",
-    function()
-       awful.util.spawn("amixer sset " .. alsawidget.channel .. " " .. alsawidget.step .. "+")
-       vicious.force({ alsawidget.bar })
-       alsawidget.notify()
-end))
-globalkeys = awful.util.table.join(globalkeys, awful.key({ }, "XF86AudioLowerVolume",
-    function()
-       awful.util.spawn("amixer sset " .. alsawidget.channel .. " " .. alsawidget.step .. "-")
-       vicious.force({ alsawidget.bar })
-       alsawidget.notify()
-end))
-globalkeys = awful.util.table.join(globalkeys, awful.key({ }, "XF86AudioMute",
-    function()
-       awful.util.spawn("amixer sset " .. alsawidget.channel .. " toggle")
-       -- The 2 following lines were needed at least on my configuration, otherwise it would get stuck muted
-       -- However, if the channel you're using is "Speaker" or "Headpphone"
-       -- instead of "Master", you'll have to comment out their corresponding line below.
-       -- awful.util.spawn("amixer sset " .. "Speaker" .. " unmute")
-       -- awful.util.spawn("amixer sset " .. "Headphone" .. " unmute")
-       vicious.force({ alsawidget.bar })
-       alsawidget.notify()
-end))
+function volUp()
+   awful.util.spawn("amixer sset " .. alsawidget.channel .. " " .. alsawidget.step .. "+")
+   vicious.force({ alsawidget.bar })
+   alsawidget.notify()
+end
+
+function volDown()
+   awful.util.spawn("amixer sset " .. alsawidget.channel .. " " .. alsawidget.step .. "-")
+   vicious.force({ alsawidget.bar })
+   alsawidget.notify()
+end
+
+function mute()
+   awful.util.spawn("amixer sset " .. alsawidget.channel .. " toggle")
+   -- The 2 following lines were needed at least on my configuration, otherwise it would get stuck muted
+   -- However, if the channel you're using is "Speaker" or "Headpphone"
+   -- instead of "Master", you'll have to comment out their corresponding line below.
+   -- awful.util.spawn("amixer sset " .. "Speaker" .. " unmute")
+   -- awful.util.spawn("amixer sset " .. "Headphone" .. " unmute")
+   vicious.force({ alsawidget.bar })
+   alsawidget.notify()
+end
+
+globalkeys = awful.util.table.join(globalkeys, awful.key({ }, "XF86AudioRaiseVolume", volUp))
+globalkeys = awful.util.table.join(globalkeys, awful.key({ }, "XF86AudioLowerVolume", volDown))
+globalkeys = awful.util.table.join(globalkeys, awful.key({ }, "#86", volUp))
+globalkeys = awful.util.table.join(globalkeys, awful.key({ }, "#82", volDown))
+globalkeys = awful.util.table.join(globalkeys, awful.key({ }, "XF86AudioMute", mute))
 
 clientkeys = awful.util.table.join(
     awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
