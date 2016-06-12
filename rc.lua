@@ -459,8 +459,10 @@ globalkeys = awful.util.table.join(globalkeys,
 
    -- Alternative key for prompt
    awful.key({}, 'XF86Favorites', function () mypromptbox[mouse.screen]:run() end)
-
 )
+
+-- remap keys lowlevel
+awful.util.spawn_with_shell('xmodmap -e "keycode 90 = space"')
 
 clientbuttons = awful.util.table.join(
     awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
