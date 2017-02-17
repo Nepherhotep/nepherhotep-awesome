@@ -9,6 +9,7 @@ conf = {
    editor = editor,
    editor_cmd = editor_cmd,
    terminal = terminal,
+   browser = 'chromium',
 
    -- Default modkey.
    -- Usually, Mod4 is the key with a logo between Control and Alt.
