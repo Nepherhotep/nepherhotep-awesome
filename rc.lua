@@ -110,6 +110,7 @@ myawesomemenu = {
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
 			     { "browser", conf.browser },
+			     { "videos", 'pcmanfm -n /media/alex/Media/Videos' },
 			     { "open terminal", terminal }
                           }
 		       })
