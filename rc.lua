@@ -624,6 +624,13 @@ client.connect_signal("mouse::enter", function(c)
     end
 end)
 
+client.connect_signal("focus", function(c)
+    if c.class == 'Screenshot Monitor' and c.type == 'utility' then
+       awful.client.focus.byidx( 1)
+    end
+    -- os.execute(string.format("logger 'AW Client: %s Class: %s Type: %s Name: %s Instance: %s Role: %s'", c, c.class, c.type, c.name, c.instance, c.role))
+end)
+
 function run_once(cmd)
    findme = cmd
    firstspace = cmd:find(" ")
