@@ -522,6 +522,16 @@ awful.rules.rules = {
      }
     },
 
+    -- Screenshot Monitor
+    { rule = {
+	 class = 'Screenshot Monitor',
+	 type = 'utility'
+      },
+      properties = {
+	 focusable = false,
+      }
+    },
+      
     -- Floating clients.
     { rule_any = {
         instance = {
@@ -623,13 +633,6 @@ client.connect_signal("mouse::enter", function(c)
         and awful.client.focus.filter(c) then
         client.focus = c
     end
-end)
-
-client.connect_signal("focus", function(c)
-    if c.class == 'Screenshot Monitor' and c.type == 'utility' then
-       awful.client.focus.byidx( 1)
-    end
-    -- os.execute(string.format("logger 'AW Client: %s Class: %s Type: %s Name: %s Instance: %s Role: %s'", c, c.class, c.type, c.name, c.instance, c.role))
 end)
 
 function run_once(cmd)
