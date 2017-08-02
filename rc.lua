@@ -534,6 +534,15 @@ awful.rules.rules = {
 	 focusable = false,
       }
     },
+
+    -- Chromium
+    { rule = {
+	 class = "chromium",
+      },
+      properties = {
+	 floating = false,
+      }
+    },
       
     -- Floating clients.
     { rule_any = {
