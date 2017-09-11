@@ -486,7 +486,7 @@ globalkeys = awful.util.table.join(globalkeys,
 
    -- Ask before poweroff
    awful.key({}, "XF86PowerOff", function ()
-	 awful.util.spawn_with_shell('zenity --question --text "Power off?" --default-cancel && poweroff')
+     --	 awful.util.spawn_with_shell('zenity --question --text "Power off?" --default-cancel && poweroff')
    end),
    
    -- Other custom hotkeys
