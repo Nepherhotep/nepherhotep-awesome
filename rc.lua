@@ -297,7 +297,7 @@ globalkeys = gears.table.join(
 
     awful.key({ modkey, }, "Print", function () awful.util.spawn("flameshot gui") end,
               {description = "Capture screen", group = "layout"}),
-    awful.key({ modkey, "Shift"}, "l", function () awful.util.spawn("xlock -mode space") end,
+    awful.key({ modkey}, "d", function () awful.util.spawn("xlock -mode space") end,
               {description = "lock screen", group = "layout"}),
     awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)          end,
               {description = "increase master width factor", group = "layout"}),

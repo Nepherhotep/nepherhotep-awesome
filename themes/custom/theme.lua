@@ -11,7 +11,7 @@ local themes_path = '~/.config/awesome/themes/'
 
 local theme = {}
 
-theme.font          = "sans 8"
+theme.font          = "sans 10"
 
 theme.bg_normal     = "#222222"
 theme.bg_focus      = "#535d6c"
@@ -40,6 +40,10 @@ theme.border_marked = "#91231c"
 -- mouse_finder_[color|timeout|animate_timeout|radius|factor]
 -- prompt_[fg|bg|fg_cursor|bg_cursor|font]
 -- hotkeys_[bg|fg|border_width|border_color|shape|opacity|modifiers_fg|label_bg|label_fg|group_margin|font|description_font]
+theme.hotkeys_font = "sans 12"
+theme.hotkeys_description_font = "sans 12"
+
+
 -- Example:
 --theme.taglist_bg_focus = "#ff0000"
 
@@ -69,6 +73,7 @@ theme.menu_width  = dpi(100)
 -- you wish and access them by using
 -- beautiful.variable in your rc.lua
 --theme.bg_widget = "#cc0000"
+
 
 -- Define the image to load
 theme.titlebar_close_button_normal = themes_path.."custom/titlebar/close_normal.png"
