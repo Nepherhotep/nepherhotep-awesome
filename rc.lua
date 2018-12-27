@@ -191,7 +191,7 @@ awful.screen.connect_for_each_screen(function(s)
     set_wallpaper(s)
 
     -- Each screen has its own tag table.
-    awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
+    awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[2])
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -297,7 +297,7 @@ globalkeys = gears.table.join(
 
     awful.key({ modkey, }, "Print", function () awful.util.spawn("flameshot gui") end,
               {description = "Capture screen", group = "layout"}),
-    awful.key({ modkey, }, "d", function () awful.util.spawn("xlock -mode space") end,
+    awful.key({ modkey, "Shift"}, "l", function () awful.util.spawn("xlock -mode space") end,
               {description = "lock screen", group = "layout"}),
     awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)          end,
               {description = "increase master width factor", group = "layout"}),
@@ -577,7 +577,7 @@ awful.rules.rules = {
 
     -- Add titlebars to normal clients and dialogs
     { rule_any = {type = { "normal", "dialog" }
-      }, properties = { titlebars_enabled = false }
+      }, properties = { titlebars_enabled = true }
     },
 
     -- Set Firefox to always map on the tag named "2" on screen 1.
