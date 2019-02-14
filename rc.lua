@@ -297,7 +297,7 @@ globalkeys = gears.table.join(
 
     awful.key({ modkey, }, "Print", function () awful.util.spawn("flameshot gui") end,
               {description = "Capture screen", group = "layout"}),
-    awful.key({ modkey}, "d", function () awful.util.spawn("xlock -mode space") end,
+    awful.key({ modkey}, "d", function () awful.util.spawn("xscreensaver-command -lock") end,
               {description = "lock screen", group = "layout"}),
     awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)          end,
               {description = "increase master width factor", group = "layout"}),
@@ -671,6 +671,7 @@ end
 
 -- autostart
 run_once('nm-applet')
+run_once("xscreensaver -no-splash")
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
